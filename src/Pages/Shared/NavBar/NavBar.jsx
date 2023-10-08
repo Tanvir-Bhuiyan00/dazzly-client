@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   const navOptions = (
     <>
@@ -23,7 +25,11 @@ const NavBar = () => {
   );
 
   return (
-    <div className="navbar py-3 md:px-16 z-10 bg-base-100 bg-opacity-20 text-white">
+    <div
+      className={`${
+        isHomePage ? "fixed" : ""
+      } navbar py-3 md:px-16 z-10 bg-base-100 bg-opacity-20 text-white`}
+    >
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -49,7 +55,9 @@ const NavBar = () => {
             {navOptions}
           </ul>
         </div>
-        <a className="font-display font-bold text-primary text-2xl md:text-3xl normal-case">Dazzly</a>
+        <a className="font-display font-bold text-primary text-2xl md:text-3xl normal-case">
+          Dazzly
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu tracking-widest text-base-content font-medium menu-horizontal font-body px-1">
@@ -57,7 +65,9 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <button className="py-2 px-5 rounded-md text-sm font-semibold text-base-200  bg-accent  border-0  tracking-wider">Log in</button>
+        <button className="py-2 px-5 rounded-md text-sm font-semibold text-base-200  bg-accent  border-0  tracking-wider">
+          Log in
+        </button>
       </div>
     </div>
   );
