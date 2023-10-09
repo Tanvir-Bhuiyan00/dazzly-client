@@ -5,7 +5,7 @@ import useAuth from "./UseAuth";
 
 
 const axiosSecure = axios.create({
-  baseURL: `${import.meta.env.VITE_api_url}`, 
+  baseURL: `http://localhost:5000`, 
 });
 
 const useAxiosSecure = () => {

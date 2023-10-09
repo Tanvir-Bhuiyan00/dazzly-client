@@ -37,11 +37,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "myjewelry",
-        element: <MyJewelry></MyJewelry>,
+        element: (
+          <PrivateRoute>
+            <MyJewelry></MyJewelry>
+          </PrivateRoute>
+        ),
       },
       {
         path: "addjewelry",
-        element: <AddJewelry></AddJewelry>,
+        element: (
+          <PrivateRoute>
+            <AddJewelry></AddJewelry>
+          </PrivateRoute>
+        ),
       },
       {
         path: "blogs",
