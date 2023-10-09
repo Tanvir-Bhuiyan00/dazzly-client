@@ -1,8 +1,42 @@
 import { Link, useLocation } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
+import useAdmin from "../../../Hooks/useAdmin";
+import useOwner from "../../../Hooks/useOwner";
 
 const NavBar = () => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  const { user, logOut } = useAuth();
+  const [isAdmin] = useAdmin();
+  const [isOwner] = useOwner();
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
+
+  const renderDashboardLink = () => {
+    if (isAdmin) {
+      return (
+        <li>
+          <Link to="/dashboard/adminhome">Dashboard</Link>
+        </li>
+      );
+    } else if (isOwner) {
+      return (
+        <li>
+          <Link to="/dashboard/ownerhome">Dashboard</Link>
+        </li>
+      );
+    } else {
+      return (
+        <li>
+          <Link to="/dashboard/clienthome">Dashboard</Link>
+        </li>
+      );
+    }
+  };
 
   const navOptions = (
     <>
@@ -21,6 +55,7 @@ const NavBar = () => {
       <li>
         <Link to="/blogs">Blogs</Link>
       </li>
+      {user?.email && renderDashboardLink()}
     </>
   );
 
@@ -65,9 +100,30 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <button className="py-2 px-5 rounded-md text-sm font-semibold text-base-200  bg-accent  border-0  tracking-wider">
-          Log in
-        </button>
+        {user?.email ? (
+          <>
+            <div className="avatar mr-3">
+              <div
+                title={user?.displayName}
+                className="w-8 md:w-10 rounded-full"
+              >
+                <img src={user?.photoURL} className="image-full " />
+              </div>
+            </div>
+            <button
+              onClick={handleLogOut}
+              className="py-2 px-5 rounded-md text-sm font-semibold text-base-200  bg-accent  border-0  tracking-wider"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link to="login">
+            <button className="py-2 px-5 rounded-md text-sm font-semibold text-base-200  bg-accent  border-0  tracking-wider">
+              Log in
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
