@@ -33,7 +33,7 @@ const Register = () => {
             email: data.email,
             photoURL: data.photoURL,
           };
-          fetch(`http://localhost:5000/users`, {
+          fetch(`https://dazzly-server.vercel.app/users`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
