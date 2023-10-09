@@ -7,6 +7,12 @@ import AddJewelry from "../Pages/AddJewelry/AddJewelry";
 import Blogs from "../Pages/Blogs/Blogs";
 import Login from "../Pages/Login/Login";
 import Register from "../Register/Register";
+import Dashboard from "../Layout/Dashboard";
+import PrivateRoute from "./PrivateRoute";
+import ClientHome from "../Pages/Dashboard/Client/ClientHome/ClientHome";
+import AdminHome from "../Pages/Dashboard/Admin/AdminHome/AdminHome";
+import OwnerHome from "../Pages/Dashboard/Owner/OwnerHome/OwnerHome";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -23,7 +29,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <Register></Register>
+        element: <Register></Register>,
       },
       {
         path: "alljewelry",
@@ -42,5 +48,31 @@ export const router = createBrowserRouter([
         element: <Blogs></Blogs>,
       },
     ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "clienthome",
+        element: <ClientHome></ClientHome>,
+      },
+      {
+        path: "adminhome",
+        element: <AdminHome></AdminHome>,
+      },
+      {
+        path: "ownerhome",
+        element: <OwnerHome></OwnerHome>,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
   },
 ]);

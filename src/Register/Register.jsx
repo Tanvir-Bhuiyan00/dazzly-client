@@ -33,7 +33,7 @@ const Register = () => {
             email: data.email,
             photoURL: data.photoURL,
           };
-          fetch(`${import.meta.env.VITE_api_url}/users`, {
+          fetch(`http://localhost:5000/users`, {
             method: "POST",
             headers: {
               "content-type": "application/json",
